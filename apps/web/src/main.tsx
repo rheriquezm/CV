@@ -1,3 +1,5 @@
+import { i18n } from "@lingui/core";
+import { I18nProvider } from "@lingui/react";
 import { RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { getRouter } from "./router";
@@ -24,5 +26,13 @@ document.querySelectorAll(serverSeoSelectors.join(",")).forEach((element) => {
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 
-	root.render(<RouterProvider router={router} />);
+	// Wrapping the router (not just the route tree) keeps TanStack Router's default
+	// error/not-found/pending components inside the i18n context. They render above the
+	// root route's provider, so without this a `Trans` in those screens throws
+	// "Cannot read properties of null (reading 'i18n')" and hides the real error.
+	root.render(
+		<I18nProvider i18n={i18n}>
+			<RouterProvider router={router} />
+		</I18nProvider>,
+	);
 }

@@ -1,8 +1,12 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" translate="no">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Browser auto-translation (e.g. Chrome) mutates text nodes React owns, which makes React's
+		reconciliation throw "Failed to execute 'insertBefore'". The app ships its own translations, so
+		opt out of machine translation to keep the DOM authoritative. -->
+		<meta name="google" content="notranslate" />
 		<meta name="theme-color" content="#09090B" />
 		<meta name="application-name" content="Reactive Resume" />
 		<meta name="mobile-web-app-capable" content="yes" />
